@@ -1,6 +1,6 @@
 ## 🌸 Biblioteca Digital - Flor de papel
 
-Bem-vindo ao **Biblioteca Digital**, um sistema web desenvolvido em **Angular** para gerenciar uma biblioteca de livros. Com esta aplicação, você pode **emprestar**, **registrar** e **avaliar** livros de forma prática e intuitiva. Ideal para bibliotecas, clubes de leitura ou qualquer pessoa que deseja organizar uma coleção de livros.
+Bem-vindo ao **Flor de Papel**, um sistema web desenvolvido em **Angular** para gerenciar uma biblioteca de livros. Com esta aplicação, você pode **emprestar**, **registrar** e **avaliar** livros de forma prática e intuitiva. Ideal para bibliotecas, clubes de leitura ou qualquer pessoa que deseja organizar uma coleção de livros.
 
 ## 🌸 Funcionalidades
 
