@@ -1,8 +1,8 @@
-# 📚 Biblioteca Digital
+# 🌸 Biblioteca Digital - Flor de papel
 
 Bem-vindo ao **Biblioteca Digital**, um sistema web desenvolvido em **Angular** para gerenciar uma biblioteca de livros. Com esta aplicação, você pode **emprestar**, **registrar** e **avaliar** livros de forma prática e intuitiva. Ideal para bibliotecas, clubes de leitura ou qualquer pessoa que deseja organizar uma coleção de livros.
 
-## 📔 Funcionalidades
+## 🌸 Funcionalidades
 
 - **Gerenciamento de Livros**:
   - Cadastro de novos livros com informações como título, autor, gênero, editora e ano de publicação.
@@ -22,7 +22,7 @@ Bem-vindo ao **Biblioteca Digital**, um sistema web desenvolvido em **Angular** 
   - Login de usuários (administradores e leitores).
   - Controle de permissões para ações administrativas (ex.: cadastro de livros).
 
-## 📋 Pré-requisitos
+## 🌸 Pré-requisitos
 
 Antes de começar, certifique-se de ter instalado:
 
