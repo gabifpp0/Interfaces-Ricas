@@ -1,16 +1,32 @@
-# Interfaces-Ricas
+# 📚 Biblioteca Digital
 
-## Biblioteca Pessoal
-Um sistema web para gerenciar uma biblioteca pessoal, permitindo o controle de empréstimos, leituras e organização de livros de forma prática e eficiente.
-Funcionalidades
+Bem-vindo ao **Biblioteca Digital**, um sistema web desenvolvido em **Angular** para gerenciar uma biblioteca de livros. Com esta aplicação, você pode **emprestar**, **registrar** e **avaliar** livros de forma prática e intuitiva. Ideal para bibliotecas, clubes de leitura ou qualquer pessoa que deseja organizar uma coleção de livros.
 
-**Cadastro de Livros:** Adicione, edite e remova informações de livros, incluindo título, autor, gênero e status.
+## 🚀 Funcionalidades
 
-**Gerenciamento de Empréstimos:** Registre empréstimos, acompanhe datas de devolução e visualize histórico.
+- **Gerenciamento de Livros**:
+  - Cadastro de novos livros com informações como título, autor, gênero, editora e ano de publicação.
+  - Edição e exclusão de livros existentes.
+  - Busca e filtro de livros por título, autor ou gênero.
+- **Empréstimos**:
+  - Registro de empréstimos com data de retirada e devolução.
+  - Acompanhamento do status do empréstimo (pendente, devolvido, atrasado).
+  - Notificação de prazos de devolução.
+- **Avaliações**:
+  - Avaliação de livros com notas (1 a 5 estrelas) e comentários.
+  - Visualização de avaliações médias e feedback de outros usuários.
+- **Interface Amigável**:
+  - Design responsivo para uso em desktops e dispositivos móveis.
+  - Navegação fluida com Angular Router.
+- **Autenticação**:
+  - Login de usuários (administradores e leitores).
+  - Controle de permissões para ações administrativas (ex.: cadastro de livros).
 
-**Controle de Leituras:** Marque livros como lidos, em leitura ou a ler, com progresso de leitura.
+## 📋 Pré-requisitos
 
-**Pesquisa e Filtros:** Busque livros por título, autor ou gênero, com filtros dinâmicos.
+Antes de começar, certifique-se de ter instalado:
 
-**Interface Intuitiva:** Design responsivo e amigável para facilitar a navegação.
+- **Node.js** (versão 16 ou superior)
+- **Angular CLI** (`npm install -g @angular/cli`)
+- **Git** (para clonar o repositório)
 
