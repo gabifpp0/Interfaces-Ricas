@@ -9,3 +9,5 @@ Gerenciamento de Empréstimos: Registre empréstimos, acompanhe datas de devolu�
 Controle de Leituras: Marque livros como lidos, em leitura ou a ler, com progresso de leitura.
 Pesquisa e Filtros: Busque livros por título, autor ou gênero, com filtros dinâmicos.
 Interface Intuitiva: Design responsivo e amigável para facilitar a navegação.
+
+-
