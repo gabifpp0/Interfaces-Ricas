@@ -14,9 +14,7 @@ Bem-vindo ao **Flor de Papel**, um sistema web desenvolvido em **Angular** para 
   - Notificação de prazos de devolução.
 - **Avaliações**:
   - Avaliação de livros com notas (1 a 5 estrelas) e comentários.
-  - Visualização de avaliações médias e feedback de outros usuários.
 - **Interface Amigável**:
-  - Design responsivo para uso em desktops e dispositivos móveis.
   - Navegação fluida com Angular Router.
 - **Autenticação**:
   - Login de usuários (administradores e leitores).
