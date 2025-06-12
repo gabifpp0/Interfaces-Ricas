@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+dist/
+build/
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VSCode (ou Codespaces)
+.vscode/
+*.code-workspace
+
+# Test Coverage
+coverage/
+
+# Output de testes
+jest-html-reporters-*.html
+test-results/
+
+# Ambiente (caso use dotenv)
+.env
+
+# Sistema
+.DS_Store
+Thumbs.db
