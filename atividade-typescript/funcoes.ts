@@ -20,6 +20,7 @@ export function ordenarArray(arr: string[]): string[] {
   return [...arr].sort();
 }
 
+
 export function doisPrimeiros(arr: number[]): number[] {
   return arr.slice(0, 2);
 }
