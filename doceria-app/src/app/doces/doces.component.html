@@ -1,0 +1,98 @@
+<div class="container mx-auto p-4 flex flex-column align-items-center">
+  <h1 class="text-4xl font-bold mb-6" style="color: #f25e8d;">Sweet Joy</h1>
+
+  <div class="w-full max-w-6xl">
+    <div class="mb-4">
+      <p-button 
+        label="Novo Doce" 
+        icon="pi pi-plus" 
+        (click)="newDoce()"
+        styleClass="p-button-outlined"
+        [style]="{ 'color': '#f25e8d', 'border-color': '#f25e8d' }">
+      </p-button>
+    </div>
+
+    <p-table [value]="doces" styleClass="p-datatable-striped w-full">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nome</th>
+          <th>Preço</th>
+          <th>Disponível</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-doce>
+        <tr>
+          <td>{{ doce.nome }}</td>
+          <td>{{ doce.preco | currency:'BRL' }}</td>
+          <td>
+            <i class="pi" [ngClass]="doce.disponivel ? 'pi-check-circle text-green-500' : 'pi-times-circle text-red-500'"></i>
+          </td>
+          <td>
+            <p-button 
+              icon="pi pi-pencil" 
+              (click)="editDoce(doce)" 
+              class="p-button-text" 
+              [style]="{ 'color': '#f25e8d' }">
+            </p-button>
+            <p-button 
+              icon="pi pi-trash" 
+              (click)="deleteDoce(doce)" 
+              class="p-button-text" 
+              [style]="{ 'color': '#f25e8d' }">
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <p-dialog 
+    [header]="isEdit ? 'Editar Doce' : 'Novo Doce'" 
+    [(visible)]="doceDialog" 
+    [modal]="true" 
+    [closable]="false"
+    [style]="{ width: '450px' }">
+    
+    <div class="p-fluid">
+      <div class="field">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" pInputText [(ngModel)]="doce.nome" />
+      </div>
+      
+      <div class="field mt-3">
+        <label for="preco">Preço</label>
+        <p-inputNumber 
+          id="preco" 
+          [(ngModel)]="doce.preco" 
+          mode="currency" 
+          currency="BRL" 
+          locale="pt-BR">
+        </p-inputNumber>
+      </div>
+      
+      <div class="field mt-3">
+        <label for="disponivel">Disponível</label>
+        <p-inputSwitch [(ngModel)]="doce.disponivel"></p-inputSwitch>
+      </div>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <p-button 
+        label="Cancelar" 
+        icon="pi pi-times" 
+        (click)="doceDialog = false" 
+        class="p-button-text" 
+        [style]="{ 'color': '#f25e8d' }">
+      </p-button>
+      
+      <p-button 
+        label="Salvar" 
+        icon="pi pi-check" 
+        (click)="saveDoce()" 
+        class="p-button-text" 
+        [style]="{ 'color': '#f25e8d' }">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+</div>
