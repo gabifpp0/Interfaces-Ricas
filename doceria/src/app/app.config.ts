@@ -2,7 +2,7 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { routes } from './app-routing.module'; // Mude para app.routes
+import { routes } from './app.routes'; // Mude para app.routes
 
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
