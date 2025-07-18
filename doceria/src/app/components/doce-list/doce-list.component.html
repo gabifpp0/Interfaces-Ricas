@@ -1,0 +1,54 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Lista de Doces</mat-card-title>
+    <mat-card-subtitle>Gerencie os doces da sua doceria</mat-card-subtitle>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div class="actions-bar">
+      <button mat-raised-button color="primary" (click)="onNovo()">
+        <mat-icon>add</mat-icon>
+        Novo Doce
+      </button>
+    </div>
+
+    <table mat-table [dataSource]="doces" class="mat-elevation-8">
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let doce">{{ doce.nome }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="preco">
+        <th mat-header-cell *matHeaderCellDef>Preço</th>
+        <td mat-cell *matCellDef="let doce">{{ doce.preco | currency:'BRL' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="disponivel">
+        <th mat-header-cell *matHeaderCellDef>Disponível</th>
+        <td mat-cell *matCellDef="let doce">
+          <mat-chip [color]="doce.disponivel ? 'primary' : 'warn'">
+            {{ doce.disponivel ? 'Sim' : 'Não' }}
+          </mat-chip>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let doce">
+          <button mat-icon-button color="primary" (click)="onVisualizar(doce)" matTooltip="Visualizar">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" (click)="onEditar(doce)" matTooltip="Editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onExcluir(doce.id)" matTooltip="Excluir">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

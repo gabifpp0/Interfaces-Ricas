@@ -1,0 +1,57 @@
+<mat-card *ngIf="isVisible && doce">
+  <mat-card-header>
+    <mat-card-title>Detalhes do Doce</mat-card-title>
+    <div class="spacer"></div>
+    <button mat-icon-button (click)="onFechar()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <mat-icon class="detail-icon">cake</mat-icon>
+        <div class="detail-content">
+          <h3>Nome</h3>
+          <p>{{ doce.nome }}</p>
+        </div>
+      </div>
+
+      <div class="detail-item">
+        <mat-icon class="detail-icon">attach_money</mat-icon>
+        <div class="detail-content">
+          <h3>Preço</h3>
+          <p>{{ doce.preco | currency:'BRL' }}</p>
+        </div>
+      </div>
+
+      <div class="detail-item">
+        <mat-icon class="detail-icon">{{ doce.disponivel ? 'check_circle' : 'cancel' }}</mat-icon>
+        <div class="detail-content">
+          <h3>Disponibilidade</h3>
+          <mat-chip [color]="doce.disponivel ? 'primary' : 'warn'">
+            {{ doce.disponivel ? 'Disponível' : 'Indisponível' }}
+          </mat-chip>
+        </div>
+      </div>
+
+      <div class="detail-item">
+        <mat-icon class="detail-icon">tag</mat-icon>
+        <div class="detail-content">
+          <h3>ID</h3>
+          <p>#{{ doce.id }}</p>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="onEditar()">
+      <mat-icon>edit</mat-icon>
+      Editar
+    </button>
+    <button mat-button (click)="onFechar()">
+      Fechar
+    </button>
+  </mat-card-actions>
+</mat-card>

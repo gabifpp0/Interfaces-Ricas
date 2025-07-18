@@ -1,1 +1,33 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+  <mat-toolbar color="primary">
+    <mat-icon>cake</mat-icon>
+    <span>{{ title }}</span>
+  </mat-toolbar>
+
+  <div class="content">
+    <!-- Componente de Lista -->
+    <app-doce-list
+      [doces]="(doces$ | async) || []"
+      (novoDoce)="onNovoDoce()"
+      (editarDoce)="onEditarDoce($event)"
+      (visualizarDoce)="onVisualizarDoce($event)"
+      (excluirDoce)="onExcluirDoce($event)">
+    </app-doce-list>
+
+    <!-- Componente de Formulário -->
+    <app-doce-form
+      [doce]="doceSelecionado"
+      [isVisible]="mostrarFormulario"
+      (salvar)="onSalvarDoce($event)"
+      (cancelar)="onCancelarFormulario()">
+    </app-doce-form>
+
+    <!-- Componente de Detalhes -->
+    <app-doce-detail
+      [doce]="doceSelecionado"
+      [isVisible]="mostrarDetalhes"
+      (fechar)="onFecharDetalhes()"
+      (editar)="onEditarDoceDetalhes($event)">
+    </app-doce-detail>
+  </div>
+</div>
