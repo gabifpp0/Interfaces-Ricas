@@ -74,7 +74,6 @@ import { DoceService } from '../../services/doce.service';
               </span>
               <div class="search-container">
                 <i class="pi pi-search search-icon"></i>
-      
               </div>
             </div>
           </ng-template>
@@ -82,18 +81,18 @@ import { DoceService } from '../../services/doce.service';
           <!-- Colunas -->
           <ng-template pTemplate="header">
             <tr>
-              <th pSortableColumn="id" style="width: 80px;">
-                ID <p-sortIcon field="id"></p-sortIcon>
+              <th ptableColumn="id" style="width: 80px;">
+                ID 
               </th>
-              <th pSortableColumn="nome">
-                Nome do Doce <p-sortIcon field="nome"></p-sortIcon>
+              <th pableColumn="nome">
+                Nome do Doce 
               </th>
            
-              <th pSortableColumn="preco" style="width: 120px;">
-                Preço <p-sortIcon field="preco"></p-sortIcon>
+              <th ptableColumn="preco" style="width: 120px;">
+                Preço 
               </th>
-              <th pSortableColumn="disponivel" style="width: 120px;">
-                Status <p-sortIcon field="disponivel"></p-sortIcon>
+              <th ptableColumn="disponivel" style="width: 120px;">
+                Status 
               </th>
               <th style="width: 150px;">Ações</th>
             </tr>

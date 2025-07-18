@@ -24,7 +24,7 @@ export class DoceService {
 
   getDoceById(id: number): Observable<Doce | undefined> {
     const doce = this.doces.find(doce => doce.id === id);
-    return of(doce); // Retorna um Observable
+    return of(doce); 
   }
 
   addDoce(doce: Omit<Doce, 'id'>): Observable<Doce> {
@@ -34,7 +34,7 @@ export class DoceService {
     };
     this.doces.push(novoDoce);
     this.docesSubject.next([...this.doces]);
-    return of(novoDoce); // Retorna o novo doce como Observable
+    return of(novoDoce); 
   }
 
   updateDoce(id: number, doce: Doce): Observable<Doce> {
@@ -45,13 +45,13 @@ export class DoceService {
     this.docesSubject.next([...this.doces]);
     return of(atualizado);
   }
-  return of(undefined as any); // ou lançar erro
+  return of(undefined as any); 
 }
 
 
   deleteDoce(id: number): Observable<void> {
     this.doces = this.doces.filter(doce => doce.id !== id);
     this.docesSubject.next([...this.doces]);
-    return of(); // Retorna um Observable<void>
+    return of();
   }
 }

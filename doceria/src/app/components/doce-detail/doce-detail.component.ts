@@ -99,15 +99,13 @@ import { DoceService } from '../../services/doce.service';
         
         <p-divider></p-divider>
         
-        <div class="detail-content">
-          <div class="detail-row">
+        <div class="detail-content">   
             <span class="detail-label">
               <i class="pi pi-hashtag"></i>
               ID:
             </span>
             <span class="detail-value id-badge">{{ doce.id }}</span>
-          </div>
-          
+         
           <div class="detail-row">
             <span class="detail-label">
               <i class="pi pi-heart-fill"></i>
