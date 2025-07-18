@@ -33,7 +33,7 @@
             ],
             "styles": [
               "src/styles.scss"
-],
+            ],
             "scripts": []
           },
           "configurations": {
@@ -46,8 +46,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
                 }
               ],
               "outputHashing": "all"
@@ -92,11 +92,14 @@
             ],
             "styles": [
               "src/styles.scss"
-],
+            ],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

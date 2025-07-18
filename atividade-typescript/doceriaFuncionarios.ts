@@ -1,4 +1,3 @@
-// Classe abstrata
 export abstract class Funcionario {
   nome: string;
   salarioBase: number;

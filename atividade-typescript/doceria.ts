@@ -1,9 +1,7 @@
-// Interface comum
 export interface Produto {
   calcularPreco(): number;
 }
 
-// Classe Bolo
 export class Bolo implements Produto {
   sabor: string;
   pesoKg: number;
@@ -20,7 +18,6 @@ export class Bolo implements Produto {
   }
 }
 
-// Classe Doce
 export class Doce implements Produto {
   tipo: string;
   quantidade: number;

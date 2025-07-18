@@ -1,0 +1,105 @@
+<p-dialog 
+  header="Detalhes do Doce"
+  [visible]="isVisible"
+  [modal]="true"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="detail-dialog"
+  (onHide)="onFechar()">
+  
+  <div class="detail-container" *ngIf="doce">
+    
+    <div class="doce-header">
+      <div class="doce-icon">
+        <i class="pi pi-heart-fill"></i>
+      </div>
+      <div class="doce-title">
+        <h2>{{ doce.nome }}</h2>
+        <p-tag 
+          [value]="doce.disponivel ? 'Disponível' : 'Indisponível'"
+          [severity]="getSeverity(doce.disponivel)">
+        </p-tag>
+      </div>
+    </div>
+
+    <p-divider></p-divider>
+
+    <div class="detail-grid">
+      
+      <div class="detail-item">
+        <div class="detail-icon">
+          <i class="pi pi-id-card"></i>
+        </div>
+        <div class="detail-content">
+          <label>ID</label>
+          <span class="detail-value">#{{ doce.id }}</span>
+        </div>
+      </div>
+
+      <div class="detail-item">
+        <div class="detail-icon">
+          <i class="pi pi-heart-fill"></i>
+        </div>
+        <div class="detail-content">
+          <label>Nome</label>
+          <span class="detail-value">{{ doce.nome }}</span>
+        </div>
+      </div>
+
+      <div class="detail-item">
+        <div class="detail-icon">
+          <i class="pi pi-dollar"></i>
+        </div>
+        <div class="detail-content">
+          <label>Preço</label>
+          <span class="detail-value price">{{ doce.preco | currency:'BRL':'symbol':'1.2-2' }}</span>
+        </div>
+      </div>
+
+      <div class="detail-item">
+        <div class="detail-icon">
+          <i class="pi" [class]="doce.disponivel ? 'pi-check-circle' : 'pi-times-circle'"></i>
+        </div>
+        <div class="detail-content">
+          <label>Status</label>
+          <p-tag 
+            [value]="doce.disponivel ? 'Disponível' : 'Indisponível'"
+            [severity]="getSeverity(doce.disponivel)">
+          </p-tag>
+        </div>
+      </div>
+
+    </div>
+
+    <p-divider></p-divider>
+
+    <div class="additional-info">
+      <h3><i class="pi pi-info-circle"></i> Informações Adicionais</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>Categoria:</strong> Doce Tradicional
+        </div>
+        <div class="info-item">
+          <strong>Criado em:</strong> {{ dataAtual | date:'dd/MM/yyyy':'':'pt-BR' }}
+        </div>
+        <div class="info-item">
+          <strong>Última atualização:</strong> {{ dataAtual | date:'dd/MM/yyyy HH:mm':'':'pt-BR' }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      
+      <p-button 
+        label="Editar"
+        icon="pi pi-pencil"
+        (click)="onEditar()"
+        styleClass="p-button-warning">
+      </p-button>
+    </div>
+  </ng-template>
+</p-dialog>

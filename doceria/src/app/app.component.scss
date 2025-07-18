@@ -1,0 +1,71 @@
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+}
+
+.toolbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  
+  .brand-icon {
+    font-size: 1.5rem;
+    color: #FFB6C1 ;
+  }
+  
+  .brand-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333;
+  }
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+:host ::ng-deep {
+  .main-toolbar {
+    background: white;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
+    .p-toolbar-group-start,
+    .p-toolbar-group-end {
+      align-items: center;
+    }
+  }
+ 
+  .p-button {
+    font-weight: 500;
+  }
+  
+  .p-dialog .p-dialog-header {
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .p-dialog .p-dialog-content {
+    padding: 1.5rem;
+  }
+  
+  .p-dialog .p-dialog-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 1rem 1.5rem;
+  }
+  
+  .p-toast .p-toast-message {
+    margin: 0 0 1rem 0;
+  }
+  
+  .p-confirm-dialog .p-dialog-header {
+    background: #fff3cd;
+    color: #856404;
+  }
+}
