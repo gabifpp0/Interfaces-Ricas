@@ -1,128 +1,115 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { ConfirmationService, MessageService } from 'primeng/api';
-
-import { Doce } from './models/doce.model';
-import { DoceService } from './services/doce.service';
-import { DoceListComponent } from './components/doce-list/doce-list.component';
-import { DoceFormComponent } from './components/doce-form/doce-form.component';
-import { DoceDetailComponent } from './components/doce-detail/doce-detail.component';
+import { MenubarModule } from 'primeng/menubar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
     ToolbarModule,
     ButtonModule,
-    ConfirmDialogModule,
-    ToastModule,
-    DoceListComponent,
-    DoceFormComponent,
-    DoceDetailComponent
+    MenubarModule
   ],
-  providers: [ConfirmationService, MessageService],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent implements OnInit {
-  title = 'Doceria Sweet Dreams';
-  doces$: Observable<Doce[]>;
-  
-  mostrarFormulario = false;
-  mostrarDetalhes = false;
-  
-  doceSelecionado: Doce | null = null;
+  template: `
+    <div class="layout-wrapper">
+      <!-- Header Navigation -->
+      <p-toolbar class="main-toolbar">
+        <div class="p-toolbar-group-start">
+          <h2 class="app-title">
+            <i class="pi pi-heart-fill"></i>
+            Doceria Delícias
+          </h2>
+        </div>
+        
+        <div class="p-toolbar-group-end">
+          <p-button 
+            label="Meus Doces" 
+            icon="pi pi-list"
+            [routerLink]="['/doces']"
+            routerLinkActive="p-button-outlined"
+            [routerLinkActiveOptions]="{exact: false}"
+            class="mr-2">
+          </p-button>
+          
+          <p-button 
+            label="Novo Doce" 
+            icon="pi pi-plus"
+            [routerLink]="['/doces/novo']"
+            routerLinkActive="p-button-outlined"
+            severity="success">
+          </p-button>
+        </div>
+      </p-toolbar>
 
-  constructor(
-    private doceService: DoceService,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {
-    this.doces$ = this.doceService.getDoces();
-  }
+      <!-- Main Content -->
+      <main class="main-content">
+        <router-outlet></router-outlet>
+      </main>
 
-  ngOnInit(): void {}
-
-  onNovoDoce(): void {
-    this.doceSelecionado = null;
-    this.mostrarFormulario = true;
-    this.mostrarDetalhes = false;
-  }
-
-  onEditarDoce(doce: Doce): void {
-    this.doceSelecionado = doce;
-    this.mostrarFormulario = true;
-    this.mostrarDetalhes = false;
-  }
-
-  onVisualizarDoce(doce: Doce): void {
-    this.doceSelecionado = doce;
-    this.mostrarDetalhes = true;
-    this.mostrarFormulario = false;
-  }
-
-  onExcluirDoce(id: number): void {
-    const doce = this.doceService.getDoceById(id);
-    
-    this.confirmationService.confirm({
-      message: `Tem certeza que deseja excluir o doce "${doce?.nome}"?`,
-      header: 'Confirmar Exclusão',
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Sim',
-      rejectLabel: 'Não',
-      accept: () => {
-        this.doceService.deleteDoce(id);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Sucesso',
-          detail: 'Doce excluído com sucesso!'
-        });
-      }
-    });
-  }
-
-  onSalvarDoce(doce: Doce | Omit<Doce, 'id'>): void {
-    if ('id' in doce) {
-      this.doceService.updateDoce(doce);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Sucesso',
-        detail: 'Doce atualizado com sucesso!'
-      });
-    } else {
-      this.doceService.addDoce(doce);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Sucesso',
-        detail: 'Doce criado com sucesso!'
-      });
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>&copy; 2024 Doceria Delícias - Sistema de Gestão de Doces Artesanais</p>
+      </footer>
+    </div>
+  `,
+  styles: [`
+    .layout-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    this.fecharFormulario();
-  }
 
-  onCancelarFormulario(): void {
-    this.fecharFormulario();
-  }
+    .main-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid #dee2e6;
+    }
 
-  onFecharDetalhes(): void {
-    this.mostrarDetalhes = false;
-    this.doceSelecionado = null;
-  }
+    .app-title {
+      color: #e91e63;
+      margin: 0;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-  onEditarDoceDetalhes(doce: Doce): void {
-    this.doceSelecionado = doce;
-    this.mostrarDetalhes = false;
-    this.mostrarFormulario = true;
-  }
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      background: linear-gradient(135deg, #ffeef3 0%, #fff5f7 100%);
+      min-height: calc(100vh - 140px);
+    }
 
-  private fecharFormulario(): void {
-    this.mostrarFormulario = false;
-    this.doceSelecionado = null;
-  }
+    .app-footer {
+      background: linear-gradient(135deg, #e91e63, #d81b60);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 1rem;
+      }
+      
+      .p-toolbar-group-end {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    }
+  `]
+})
+export class AppComponent {
+  title = 'doceria-angular-primeng';
 }
