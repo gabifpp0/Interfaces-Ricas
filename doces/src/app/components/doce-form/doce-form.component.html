@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>{{doce.id ? 'Editar' : 'Novo'}} Doce</h2>
+
+<div mat-dialog-content>
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Nome</mat-label>
+    <input matInput [(ngModel)]="doce.nome" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Preço</mat-label>
+    <input matInput type="number" [(ngModel)]="doce.preco" required min="0" step="0.01">
+  </mat-form-field>
+
+  <mat-slide-toggle [(ngModel)]="doce.disponivel" class="w-full">
+    Disponível
+  </mat-slide-toggle>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="!doce.nome || !doce.preco">
+    Salvar
+  </button>
+</div>

@@ -1,0 +1,45 @@
+<div class="container">
+  <h1>Doceria</h1>
+  
+  <button mat-raised-button color="primary" (click)="openForm()">
+    <mat-icon>add</mat-icon> Novo Doce
+  </button>
+
+  <table mat-table [dataSource]="doces" class="mat-elevation-z8">
+    <!-- Nome Column -->
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let doce"> {{doce.nome}} </td>
+    </ng-container>
+
+    <!-- Preço Column -->
+    <ng-container matColumnDef="preco">
+      <th mat-header-cell *matHeaderCellDef> Preço </th>
+      <td mat-cell *matCellDef="let doce"> {{doce.preco | currency:'BRL'}} </td>
+    </ng-container>
+
+    <!-- Disponível Column -->
+    <ng-container matColumnDef="disponivel">
+      <th mat-header-cell *matHeaderCellDef> Disponível </th>
+      <td mat-cell *matCellDef="let doce">
+        {{doce.disponivel ? 'Sim' : 'Não'}}
+      </td>
+    </ng-container>
+
+    <!-- Ações Column -->
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef> Ações </th>
+      <td mat-cell *matCellDef="let doce">
+        <button mat-icon-button color="primary" (click)="openForm(doce)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteDoce(doce.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

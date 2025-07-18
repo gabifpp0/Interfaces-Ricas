@@ -1,0 +1,147 @@
+<div class="container">
+  <h1>Gerenciamento de Doces</h1>
+  
+  <p-button 
+    label="Novo Doce" 
+    icon="pi pi-plus"
+    (click)="showAddDialog()"
+    class="p-button-success mb-4">
+  </p-button>
+
+  <div class="grid">
+    <div *ngFor="let doce of doces" class="card">
+      <div class="card-header">
+        <h3>{{ doce.nome }}</h3>
+        <span class="category">{{ doce.categoria }}</span>
+      </div>
+      <div class="card-body">
+        <p class="price">{{ doce.preco | currency:'BRL' }}</p>
+        <p class="status">
+          {{ doce.disponivel ? 'Disponível' : 'Indisponível' }}
+        </p>
+      </div>
+      <div class="card-actions">
+        <button 
+          pButton pRipple 
+          icon="pi pi-eye" 
+          class="p-button-info mr-2"
+          (click)="showDetail(doce)">
+        </button>
+        
+        <button 
+          pButton pRipple 
+          icon="pi pi-pencil" 
+          class="p-button-warning mr-2"
+          (click)="showEditDialog(doce)">
+        </button>
+        
+        <button 
+          pButton pRipple 
+          icon="pi pi-trash" 
+          class="p-button-danger"
+          (click)="deleteDoce(doce.id)">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dialog de Edição/Criação -->
+  <p-dialog 
+    header="{{ isNew ? 'Novo Doce' : 'Editar Doce' }}" 
+    [(visible)]="displayDialog"
+    [modal]="true" 
+    [style]="{ width: '450px' }">
+    
+    <div class="p-fluid">
+      <div class="p-field mb-4">
+        <label for="name">Nome</label>
+        <input 
+          type="text" 
+          pInputText 
+          id="name" 
+          [(ngModel)]="selectedDoce.nome"
+          required>
+      </div>
+      
+      <div class="p-field mb-4">
+        <label for="price">Preço</label>
+        <p-inputNumber 
+          id="price" 
+          [(ngModel)]="selectedDoce.preco"
+          mode="currency" 
+          currency="BRL"
+          required>
+        </p-inputNumber>
+      </div>
+      
+      <div class="p-field mb-4">
+        <label for="category">Categoria</label>
+        <input 
+          type="text" 
+          pInputText 
+          id="category" 
+          [(ngModel)]="selectedDoce.categoria"
+          required>
+      </div>
+      
+      <div class="p-field-checkbox mb-4">
+        <p-inputSwitch 
+          id="available" 
+          [(ngModel)]="selectedDoce.disponivel">
+        </p-inputSwitch>
+        <label for="available">Disponível</label>
+      </div>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <p-button 
+        label="Cancelar" 
+        icon="pi pi-times" 
+        (click)="displayDialog = false"
+        class="p-button-text">
+      </p-button>
+      
+      <p-button 
+        label="Salvar" 
+        icon="pi pi-check" 
+        (click)="save()"
+        [disabled]="!selectedDoce.nome || !selectedDoce.preco || !selectedDoce.categoria">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+
+  <!-- Dialog de Detalhes -->
+  <p-dialog 
+    header="Detalhes do Doce" 
+    [(visible)]="detailVisible"
+    [modal]="true" 
+    [style]="{ width: '500px' }">
+    
+    <div *ngIf="selectedDoce" class="detail-container">
+      <div class="detail-header">
+        <h3>{{ selectedDoce.nome }}</h3>
+        <span class="category">{{ selectedDoce.categoria }}</span>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Preço:</div>
+        <div class="detail-value">{{ selectedDoce.preco | currency:'BRL' }}</div>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Disponibilidade:</div>
+        <div class="detail-value">
+          {{ selectedDoce.disponivel ? 'Disponível' : 'Indisponível' }}
+        </div>
+      </div>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <p-button 
+        label="Fechar" 
+        (click)="detailVisible = false"
+        styleClass="p-button-text">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+</div>
