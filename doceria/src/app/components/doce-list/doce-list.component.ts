@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
+import { TooltipModule } from 'primeng/tooltip';
 import { Doce } from '../../models/doce.model';
 
 @Component({
@@ -14,12 +12,11 @@ import { Doce } from '../../models/doce.model';
   standalone: true,
   imports: [
     CommonModule,
-    MatCardModule,
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatChipsModule,
-    MatTooltipModule,
+    CardModule,
+    TableModule,
+    ButtonModule,
+    TagModule,
+    TooltipModule,
     CurrencyPipe
   ],
   templateUrl: './doce-list.component.html',
@@ -31,8 +28,6 @@ export class DoceListComponent {
   @Output() visualizarDoce = new EventEmitter<Doce>();
   @Output() excluirDoce = new EventEmitter<number>();
   @Output() novoDoce = new EventEmitter<void>();
-
-  displayedColumns: string[] = ['nome', 'preco', 'disponivel', 'acoes'];
 
   onEditar(doce: Doce): void {
     this.editarDoce.emit(doce);
@@ -48,5 +43,9 @@ export class DoceListComponent {
 
   onNovo(): void {
     this.novoDoce.emit();
+  }
+
+  getSeverity(disponivel: boolean): 'success' | 'danger' {
+    return disponivel ? 'success' : 'danger';
   }
 }

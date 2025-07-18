@@ -1,11 +1,6 @@
 <div class="app-container">
-  <mat-toolbar color="primary">
-    <mat-icon>cake</mat-icon>
-    <span>{{ title }}</span>
-  </mat-toolbar>
-
   <div class="content">
-    <!-- Componente de Lista -->
+
     <app-doce-list
       [doces]="(doces$ | async) || []"
       (novoDoce)="onNovoDoce()"
@@ -14,7 +9,6 @@
       (excluirDoce)="onExcluirDoce($event)">
     </app-doce-list>
 
-    <!-- Componente de Formulário -->
     <app-doce-form
       [doce]="doceSelecionado"
       [isVisible]="mostrarFormulario"
@@ -22,7 +16,6 @@
       (cancelar)="onCancelarFormulario()">
     </app-doce-form>
 
-    <!-- Componente de Detalhes -->
     <app-doce-detail
       [doce]="doceSelecionado"
       [isVisible]="mostrarDetalhes"
@@ -30,4 +23,9 @@
       (editar)="onEditarDoceDetalhes($event)">
     </app-doce-detail>
   </div>
+
+
+  <p-toast position="top-right"></p-toast>
+ 
+  <p-confirmDialog></p-confirmDialog>
 </div>

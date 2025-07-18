@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
+import { DividerModule } from 'primeng/divider';
 import { Doce } from '../../models/doce.model';
 
 @Component({
@@ -11,11 +12,13 @@ import { Doce } from '../../models/doce.model';
   standalone: true,
   imports: [
     CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatChipsModule,
-    CurrencyPipe
+    DialogModule,
+    CardModule,
+    ButtonModule,
+    TagModule,
+    DividerModule,
+    CurrencyPipe,
+    DatePipe
   ],
   templateUrl: './doce-detail.component.html',
   styleUrls: ['./doce-detail.component.scss']
@@ -26,6 +29,10 @@ export class DoceDetailComponent {
   @Output() fechar = new EventEmitter<void>();
   @Output() editar = new EventEmitter<Doce>();
 
+  get dataAtual(): Date {
+    return new Date();
+  }
+
   onFechar(): void {
     this.fechar.emit();
   }
@@ -34,5 +41,9 @@ export class DoceDetailComponent {
     if (this.doce) {
       this.editar.emit(this.doce);
     }
+  }
+
+  getSeverity(disponivel: boolean): 'success' | 'danger' {
+    return disponivel ? 'success' : 'danger';
   }
 }

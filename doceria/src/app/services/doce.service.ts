@@ -10,11 +10,13 @@ export class DoceService {
     { id: 1, nome: 'Brigadeiro', preco: 2.50, disponivel: true },
     { id: 2, nome: 'Beijinho', preco: 2.50, disponivel: true },
     { id: 3, nome: 'Trufa de Chocolate', preco: 4.00, disponivel: false },
-    { id: 4, nome: 'Pudim', preco: 15.00, disponivel: true }
+    { id: 4, nome: 'Pudim', preco: 15.00, disponivel: true },
+    { id: 5, nome: 'Quindim', preco: 3.00, disponivel: true },
+    { id: 6, nome: 'Bem-casado', preco: 5.50, disponivel: false }
   ];
 
   private docesSubject = new BehaviorSubject<Doce[]>(this.doces);
-  private nextId = 5;
+  private nextId = 7;
 
   getDoces(): Observable<Doce[]> {
     return this.docesSubject.asObservable();

@@ -1,57 +1,105 @@
-<mat-card *ngIf="isVisible && doce">
-  <mat-card-header>
-    <mat-card-title>Detalhes do Doce</mat-card-title>
-    <div class="spacer"></div>
-    <button mat-icon-button (click)="onFechar()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-card-header>
+<p-dialog 
+  header="Detalhes do Doce"
+  [visible]="isVisible"
+  [modal]="true"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="detail-dialog"
+  (onHide)="onFechar()">
   
-  <mat-card-content>
+  <div class="detail-container" *ngIf="doce">
+    
+    <div class="doce-header">
+      <div class="doce-icon">
+        <i class="pi pi-heart-fill"></i>
+      </div>
+      <div class="doce-title">
+        <h2>{{ doce.nome }}</h2>
+        <p-tag 
+          [value]="doce.disponivel ? 'Disponível' : 'Indisponível'"
+          [severity]="getSeverity(doce.disponivel)">
+        </p-tag>
+      </div>
+    </div>
+
+    <p-divider></p-divider>
+
     <div class="detail-grid">
+      
       <div class="detail-item">
-        <mat-icon class="detail-icon">cake</mat-icon>
+        <div class="detail-icon">
+          <i class="pi pi-id-card"></i>
+        </div>
         <div class="detail-content">
-          <h3>Nome</h3>
-          <p>{{ doce.nome }}</p>
+          <label>ID</label>
+          <span class="detail-value">#{{ doce.id }}</span>
         </div>
       </div>
 
       <div class="detail-item">
-        <mat-icon class="detail-icon">attach_money</mat-icon>
+        <div class="detail-icon">
+          <i class="pi pi-heart-fill"></i>
+        </div>
         <div class="detail-content">
-          <h3>Preço</h3>
-          <p>{{ doce.preco | currency:'BRL' }}</p>
+          <label>Nome</label>
+          <span class="detail-value">{{ doce.nome }}</span>
         </div>
       </div>
 
       <div class="detail-item">
-        <mat-icon class="detail-icon">{{ doce.disponivel ? 'check_circle' : 'cancel' }}</mat-icon>
+        <div class="detail-icon">
+          <i class="pi pi-dollar"></i>
+        </div>
         <div class="detail-content">
-          <h3>Disponibilidade</h3>
-          <mat-chip [color]="doce.disponivel ? 'primary' : 'warn'">
-            {{ doce.disponivel ? 'Disponível' : 'Indisponível' }}
-          </mat-chip>
+          <label>Preço</label>
+          <span class="detail-value price">{{ doce.preco | currency:'BRL':'symbol':'1.2-2' }}</span>
         </div>
       </div>
 
       <div class="detail-item">
-        <mat-icon class="detail-icon">tag</mat-icon>
+        <div class="detail-icon">
+          <i class="pi" [class]="doce.disponivel ? 'pi-check-circle' : 'pi-times-circle'"></i>
+        </div>
         <div class="detail-content">
-          <h3>ID</h3>
-          <p>#{{ doce.id }}</p>
+          <label>Status</label>
+          <p-tag 
+            [value]="doce.disponivel ? 'Disponível' : 'Indisponível'"
+            [severity]="getSeverity(doce.disponivel)">
+          </p-tag>
+        </div>
+      </div>
+
+    </div>
+
+    <p-divider></p-divider>
+
+    <div class="additional-info">
+      <h3><i class="pi pi-info-circle"></i> Informações Adicionais</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>Categoria:</strong> Doce Tradicional
+        </div>
+        <div class="info-item">
+          <strong>Criado em:</strong> {{ dataAtual | date:'dd/MM/yyyy':'':'pt-BR' }}
+        </div>
+        <div class="info-item">
+          <strong>Última atualização:</strong> {{ dataAtual | date:'dd/MM/yyyy HH:mm':'':'pt-BR' }}
         </div>
       </div>
     </div>
-  </mat-card-content>
 
-  <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="onEditar()">
-      <mat-icon>edit</mat-icon>
-      Editar
-    </button>
-    <button mat-button (click)="onFechar()">
-      Fechar
-    </button>
-  </mat-card-actions>
-</mat-card>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      
+      <p-button 
+        label="Editar"
+        icon="pi pi-pencil"
+        (click)="onEditar()"
+        styleClass="p-button-warning">
+      </p-button>
+    </div>
+  </ng-template>
+</p-dialog>

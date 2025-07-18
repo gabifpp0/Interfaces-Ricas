@@ -1,19 +1,74 @@
-.actions-bar {
-  margin-bottom: 20px;
+.form-container {
+  padding: 1rem 0;
+}
+
+.field {
+  margin-bottom: 1.5rem;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  
+  i {
+    margin-right: 0.5rem;
+    color: #FFB6C1 ;
+  }
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.checkbox-label {
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  
+  i {
+    margin-right: 0.5rem;
+    color: #4caf50;
+  }
+}
+
+.dialog-footer {
   display: flex;
   justify-content: flex-end;
+  gap: 0.5rem;
 }
 
-table {
-  width: 100%;
-  margin-top: 20px;
-}
-
-.mat-mdc-cell {
-  padding: 16px;
-}
-
-.mat-mdc-header-cell {
-  padding: 16px;
-  font-weight: bold;
+:host ::ng-deep {
+  .doce-dialog {
+    width: 90vw;
+    max-width: 500px;
+  }
+  
+  .doce-dialog .p-dialog-header {
+    background: linear-gradient(135deg, #FFB6C1 , #f06292);
+    color: white;
+    
+    .p-dialog-title {
+      font-weight: 600;
+    }
+    
+    .p-dialog-header-icon {
+      color: white;
+    }
+  }
+  
+  .w-full {
+    width: 100%;
+  }
+  
+  .ng-invalid.ng-touched {
+    border-color: #f44336 !important;
+  }
+  
+  .p-inputnumber.ng-invalid .p-inputtext {
+    border-color: #f44336 !important;
+  }
 }

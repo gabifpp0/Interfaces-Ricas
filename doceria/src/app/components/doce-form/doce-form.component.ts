@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
 import { Doce } from '../../models/doce.model';
 
 @Component({
@@ -14,11 +16,13 @@ import { Doce } from '../../models/doce.model';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule
+    DialogModule,
+    CardModule,
+    InputTextModule,
+    InputNumberModule,
+    CheckboxModule,
+    ButtonModule,
+    MessageModule
   ],
   templateUrl: './doce-form.component.html',
   styleUrls: ['./doce-form.component.scss']
@@ -93,5 +97,10 @@ export class DoceFormComponent implements OnInit, OnChanges {
       return `${field} deve ser maior que zero`;
     }
     return '';
+  }
+
+  isFieldInvalid(field: string): boolean {
+    const control = this.doceForm.get(field);
+    return !!(control?.invalid && control?.touched);
   }
 }

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { Doce } from './models/doce.model';
 import { DoceService } from './services/doce.service';
@@ -15,12 +18,15 @@ import { DoceDetailComponent } from './components/doce-detail/doce-detail.compon
   standalone: true,
   imports: [
     CommonModule,
-    MatToolbarModule,
-    MatIconModule,
+    ToolbarModule,
+    ButtonModule,
+    ConfirmDialogModule,
+    ToastModule,
     DoceListComponent,
     DoceFormComponent,
     DoceDetailComponent
   ],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -28,20 +34,21 @@ export class AppComponent implements OnInit {
   title = 'Doceria Sweet Dreams';
   doces$: Observable<Doce[]>;
   
-  // Estados para controlar a exibição dos componentes
   mostrarFormulario = false;
   mostrarDetalhes = false;
   
-  // Doce selecionado para edição ou visualização
   doceSelecionado: Doce | null = null;
 
-  constructor(private doceService: DoceService) {
+  constructor(
+    private doceService: DoceService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {
     this.doces$ = this.doceService.getDoces();
   }
 
   ngOnInit(): void {}
 
-  // Eventos do componente de lista
   onNovoDoce(): void {
     this.doceSelecionado = null;
     this.mostrarFormulario = true;
@@ -61,19 +68,40 @@ export class AppComponent implements OnInit {
   }
 
   onExcluirDoce(id: number): void {
-    if (confirm('Tem certeza que deseja excluir este doce?')) {
-      this.doceService.deleteDoce(id);
-    }
+    const doce = this.doceService.getDoceById(id);
+    
+    this.confirmationService.confirm({
+      message: `Tem certeza que deseja excluir o doce "${doce?.nome}"?`,
+      header: 'Confirmar Exclusão',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      accept: () => {
+        this.doceService.deleteDoce(id);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Doce excluído com sucesso!'
+        });
+      }
+    });
   }
 
-  // Eventos do componente de formulário
   onSalvarDoce(doce: Doce | Omit<Doce, 'id'>): void {
     if ('id' in doce) {
-      // Atualizar doce existente
       this.doceService.updateDoce(doce);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Doce atualizado com sucesso!'
+      });
     } else {
-      // Criar novo doce
       this.doceService.addDoce(doce);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Doce criado com sucesso!'
+      });
     }
     this.fecharFormulario();
   }
@@ -82,7 +110,6 @@ export class AppComponent implements OnInit {
     this.fecharFormulario();
   }
 
-  // Eventos do componente de detalhes
   onFecharDetalhes(): void {
     this.mostrarDetalhes = false;
     this.doceSelecionado = null;

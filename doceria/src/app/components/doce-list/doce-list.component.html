@@ -1,54 +1,99 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Lista de Doces</mat-card-title>
-    <mat-card-subtitle>Gerencie os doces da sua doceria</mat-card-subtitle>
-  </mat-card-header>
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="card-header">
+      <h2><i class="pi pi-heart-fill"></i> Lista de Doces</h2>
+      <p>Gerencie os doces da sua doceria</p>
+    </div>
+  </ng-template>
   
-  <mat-card-content>
+  <ng-template pTemplate="content">
     <div class="actions-bar">
-      <button mat-raised-button color="primary" (click)="onNovo()">
-        <mat-icon>add</mat-icon>
-        Novo Doce
-      </button>
+      <p-button 
+        label="Novo Doce" 
+        icon="pi pi-plus" 
+        (onClick)="onNovo()"
+        styleClass="p-button-success">
+      </p-button>
     </div>
 
-    <table mat-table [dataSource]="doces" class="mat-elevation-8">
-      <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef>Nome</th>
-        <td mat-cell *matCellDef="let doce">{{ doce.nome }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="preco">
-        <th mat-header-cell *matHeaderCellDef>Preço</th>
-        <td mat-cell *matCellDef="let doce">{{ doce.preco | currency:'BRL' }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="disponivel">
-        <th mat-header-cell *matHeaderCellDef>Disponível</th>
-        <td mat-cell *matCellDef="let doce">
-          <mat-chip [color]="doce.disponivel ? 'primary' : 'warn'">
-            {{ doce.disponivel ? 'Sim' : 'Não' }}
-          </mat-chip>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="acoes">
-        <th mat-header-cell *matHeaderCellDef>Ações</th>
-        <td mat-cell *matCellDef="let doce">
-          <button mat-icon-button color="primary" (click)="onVisualizar(doce)" matTooltip="Visualizar">
-            <mat-icon>visibility</mat-icon>
-          </button>
-          <button mat-icon-button color="accent" (click)="onEditar(doce)" matTooltip="Editar">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="onExcluir(doce.id)" matTooltip="Excluir">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </mat-card-content>
-</mat-card>
+    <p-table 
+      [value]="doces" 
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} doces"
+      [rowsPerPageOptions]="[5,10,20]"
+      styleClass="p-datatable-gridlines">
+      
+      <ng-template pTemplate="header">
+        <tr>
+          <th ptableColumn="nome">
+            Nome 
+          </th>
+          <th ptableColumn="preco">
+            Preço
+          </th>
+          <th ptableColumn="disponivel">
+            Status
+          </th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="body" let-doce>
+        <tr>
+          <td>
+            <div class="doce-info">
+              <i class="pi pi-heart-fill doce-icon"></i>
+              <span class="doce-nome">{{ doce.nome }}</span>
+            </div>
+          </td>
+          <td>
+            <span class="preco">{{ doce.preco | currency:'BRL':'symbol':'1.2-2' }}</span>
+          </td>
+          <td>
+            <p-tag 
+              [value]="doce.disponivel ? 'Disponível' : 'Indisponível'"
+              [severity]="getSeverity(doce.disponivel)">
+            </p-tag>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <p-button 
+                icon="pi pi-eye" 
+                (onClick)="onVisualizar(doce)"
+                pTooltip="Visualizar"
+                tooltipPosition="top"
+                styleClass="p-button-rounded p-button-info p-button-sm">
+              </p-button>
+              <p-button 
+                icon="pi pi-pencil" 
+                (onClick)="onEditar(doce)"
+                pTooltip="Editar"
+                tooltipPosition="top"
+                styleClass="p-button-rounded p-button-warning p-button-sm">
+              </p-button>
+              <p-button 
+                icon="pi pi-trash" 
+                (onClick)="onExcluir(doce.id)"
+                pTooltip="Excluir"
+                tooltipPosition="top"
+                styleClass="p-button-rounded p-button-danger p-button-sm">
+              </p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4" class="text-center">
+            <div class="empty-state">
+              <i class="pi pi-heart" style="font-size: 3rem; color: #ccc;"></i>
+              <p>Nenhum doce encontrado</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-template>
+</p-card>
