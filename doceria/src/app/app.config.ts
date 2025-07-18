@@ -12,19 +12,22 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import Lara from '@primeng/themes/lara';
+import { AppRoutingModule } from './app.routes';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    importProvidersFrom(AppRoutingModule),
     provideRouter(routes),
     provideHttpClient(),
     provideAnimationsAsync(),
+    importProvidersFrom(FormsModule),
 
      providePrimeNG({
       theme: {
-        preset: Lara, // Changed to Lara theme as Vela is not available
+        preset: Lara,
         options: {
           darkModeSelector: '.app-dark'
         },

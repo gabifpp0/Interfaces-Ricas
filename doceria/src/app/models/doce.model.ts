@@ -1,5 +1,5 @@
 export interface Doce {
-  id: number;
+  id?: number;
   nome: string;
   preco: number;
   disponivel: boolean; 
