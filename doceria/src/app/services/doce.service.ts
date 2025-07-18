@@ -7,7 +7,7 @@ import { Doce } from '../models/doce.model';
   providedIn: 'root'
 })
 export class DoceService {
-  private apiUrl = 'http://localhost:3000/api/doces'; // Ajuste para o URL do seu backend
+  private apiUrl = 'http://localhost:3000/api/doces';
 
   constructor(private http: HttpClient) {}
 

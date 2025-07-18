@@ -1,0 +1,26 @@
+<h2>Listagem de Doces</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Preço</th>
+      <th>Disponível</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let doce of doces">
+      <td>{{ doce.id }}</td>
+      <td>{{ doce.nome }}</td>
+      <td>{{ doce.preco | currency:'BRL' }}</td>
+      <td>{{ doce.disponivel ? 'Sim' : 'Não' }}</td>
+      <td>
+        <button (click)="onView(doce)">Detalhar</button>
+        <button (click)="onEdit(doce)">Editar</button>
+        <button (click)="onDelete(doce.id!)">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a routerLink="/novo">Novo Doce</a>

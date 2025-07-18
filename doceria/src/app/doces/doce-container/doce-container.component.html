@@ -1,0 +1,21 @@
+<h1>Gerenciamento de Doces</h1>
+<button (click)="showCreate()">Novo Doce</button>
+<app-doce-list
+  (editDoce)="handleEditDoce($event)"
+  (deleteDoce)="handleDeleteDoce($event)"
+  (viewDoce)="handleViewDoce($event)">
+</app-doce-list>
+<app-doce-create
+  *ngIf="showCreateForm"
+  (doceCreated)="handleDoceCreated($event)">
+</app-doce-create>
+<app-doce-update
+  *ngIf="showUpdateForm"
+  [doce]="selectedDoce!"
+  (doceUpdated)="handleDoceUpdated($event)"
+  (cancel)="handleCancel()">
+</app-doce-update>
+<app-doce-detail
+  *ngIf="showDetail"
+  [doce]="selectedDoce">
+</app-doce-detail>
