@@ -1,105 +1,156 @@
-<p-dialog 
-  header="Detalhes do Doce"
-  [visible]="isVisible"
-  [modal]="true"
-  [closable]="true"
-  [draggable]="false"
-  [resizable]="false"
-  styleClass="detail-dialog"
-  (onHide)="onFechar()">
-  
-  <div class="detail-container" *ngIf="doce">
-    
-    <div class="doce-header">
-      <div class="doce-icon">
-        <i class="pi pi-heart-fill"></i>
-      </div>
-      <div class="doce-title">
-        <h2>{{ doce.nome }}</h2>
-        <p-tag 
-          [value]="doce.disponivel ? 'Disponível' : 'Indisponível'"
-          [severity]="getSeverity(doce.disponivel)">
-        </p-tag>
-      </div>
+<div class="doce-detail-container">
+      <!-- Loading State -->
+      <p-card *ngIf="loading" class="detail-card">
+        <div class="detail-header">
+          <p-skeleton width="300px" height="2.5rem"></p-skeleton>
+          <div class="detail-actions">
+            <p-skeleton width="80px" height="2.5rem"></p-skeleton>
+            <p-skeleton width="80px" height="2.5rem"></p-skeleton>
+            <p-skeleton width="80px" height="2.5rem"></p-skeleton>
+          </div>
+        </div>
+        
+        <p-divider></p-divider>
+        
+        <div class="detail-content">
+          <div class="detail-row">
+            <p-skeleton width="60px" height="1rem"></p-skeleton>
+            <p-skeleton width="40px" height="1rem"></p-skeleton>
+          </div>
+          <div class="detail-row">
+            <p-skeleton width="80px" height="1rem"></p-skeleton>
+            <p-skeleton width="120px" height="1rem"></p-skeleton>
+          </div>
+          <div class="detail-row">
+            <p-skeleton width="70px" height="1rem"></p-skeleton>
+            <p-skeleton width="100px" height="1rem"></p-skeleton>
+          </div>
+          <div class="detail-row">
+            <p-skeleton width="90px" height="1rem"></p-skeleton>
+            <p-skeleton width="80px" height="1rem"></p-skeleton>
+          </div>
+        </div>
+      </p-card>
+
+      <!-- Doce Detail -->
+      <p-card *ngIf="!loading && doce" class="detail-card">
+        <div class="detail-header">
+          <h1 class="detail-title">
+            <i class="pi pi-heart-fill"></i>
+            {{ doce.nome }}
+          </h1>
+          <div class="detail-actions">
+            <p-button 
+              label="Voltar" 
+              icon="pi pi-arrow-left"
+              [routerLink]="['/doces']"
+              severity="secondary"
+              size="small">
+            </p-button>
+            
+            <p-button 
+              label="Editar" 
+              icon="pi pi-pencil"
+              [routerLink]="['/doces', doce.id, 'editar']"
+              severity="info"
+              size="small">
+            </p-button>
+            
+            <p-button 
+              label="Excluir" 
+              icon="pi pi-trash"
+              (click)="confirmarExclusao()"
+              severity="danger"
+              size="small">
+            </p-button>
+          </div>
+        </div>
+        
+        <p-divider></p-divider>
+        
+        <div class="detail-content">   
+            <span class="detail-label">
+              <i class="pi pi-hashtag"></i>
+              ID:
+            </span>
+            <span class="detail-value id-badge">{{ doce.id }}</span>
+         
+          <div class="detail-row">
+            <span class="detail-label">
+              <i class="pi pi-heart-fill"></i>
+              Nome do Doce:
+            </span>
+            <span class="detail-value doce-name">{{ doce.nome }}</span>
+          </div>
+          
+          <div class="detail-row">
+            <span class="detail-label">
+              <i class="pi pi-dollar"></i>
+              Preço:
+            </span>
+            <span class="detail-value price">{{ doce.preco | currency:'BRL':'symbol':'1.2-2' }}</span>
+          </div>
+          
+          <div class="detail-row">
+            <span class="detail-label">
+              <i class="pi pi-check-circle"></i>
+              Status:
+            </span>
+            <p-tag 
+              [value]="doce.disponivel ? 'Disponível' : 'Esgotado'"
+              [severity]="doce.disponivel ? 'success' : 'danger'"
+              [icon]="doce.disponivel ? 'pi pi-check' : 'pi pi-times'">
+            </p-tag>
+          </div>
+
+        </div>
+
+        <p-divider></p-divider>
+
+        <!-- Actions Footer -->
+        <div class="detail-footer">
+          <div class="footer-info">
+            <i class="pi pi-info-circle"></i>
+            <span>Doce artesanal criado com carinho</span>
+          </div>
+          <div class="footer-actions">
+            <p-button 
+              label="Criar Novo Doce" 
+              icon="pi pi-plus"
+              [routerLink]="['/doces/novo']"
+              severity="success"
+              [outlined]="true">
+            </p-button>
+          </div>
+        </div>
+      </p-card>
+
+      <!-- Error State -->
+      <p-card *ngIf="!loading && !doce" class="detail-card error-card">
+        <div class="error-content">
+          <i class="pi pi-exclamation-triangle error-icon"></i>
+          <h2>Doce não encontrado</h2>
+          <p>O doce solicitado não foi encontrado ou não existe mais.</p>
+          <div class="error-actions">
+            <p-button 
+              label="Voltar para Lista" 
+              icon="pi pi-arrow-left"
+              [routerLink]="['/doces']"
+              severity="secondary"
+              size="large">
+            </p-button>
+            
+            <p-button 
+              label="Criar Novo Doce" 
+              icon="pi pi-plus"
+              [routerLink]="['/doces/novo']"
+              severity="success"
+              size="large">
+            </p-button>
+          </div>
+        </div>
+      </p-card>
     </div>
 
-    <p-divider></p-divider>
-
-    <div class="detail-grid">
-      
-      <div class="detail-item">
-        <div class="detail-icon">
-          <i class="pi pi-id-card"></i>
-        </div>
-        <div class="detail-content">
-          <label>ID</label>
-          <span class="detail-value">#{{ doce.id }}</span>
-        </div>
-      </div>
-
-      <div class="detail-item">
-        <div class="detail-icon">
-          <i class="pi pi-heart-fill"></i>
-        </div>
-        <div class="detail-content">
-          <label>Nome</label>
-          <span class="detail-value">{{ doce.nome }}</span>
-        </div>
-      </div>
-
-      <div class="detail-item">
-        <div class="detail-icon">
-          <i class="pi pi-dollar"></i>
-        </div>
-        <div class="detail-content">
-          <label>Preço</label>
-          <span class="detail-value price">{{ doce.preco | currency:'BRL':'symbol':'1.2-2' }}</span>
-        </div>
-      </div>
-
-      <div class="detail-item">
-        <div class="detail-icon">
-          <i class="pi" [class]="doce.disponivel ? 'pi-check-circle' : 'pi-times-circle'"></i>
-        </div>
-        <div class="detail-content">
-          <label>Status</label>
-          <p-tag 
-            [value]="doce.disponivel ? 'Disponível' : 'Indisponível'"
-            [severity]="getSeverity(doce.disponivel)">
-          </p-tag>
-        </div>
-      </div>
-
-    </div>
-
-    <p-divider></p-divider>
-
-    <div class="additional-info">
-      <h3><i class="pi pi-info-circle"></i> Informações Adicionais</h3>
-      <div class="info-grid">
-        <div class="info-item">
-          <strong>Categoria:</strong> Doce Tradicional
-        </div>
-        <div class="info-item">
-          <strong>Criado em:</strong> {{ dataAtual | date:'dd/MM/yyyy':'':'pt-BR' }}
-        </div>
-        <div class="info-item">
-          <strong>Última atualização:</strong> {{ dataAtual | date:'dd/MM/yyyy HH:mm':'':'pt-BR' }}
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <ng-template pTemplate="footer">
-    <div class="dialog-footer">
-      
-      <p-button 
-        label="Editar"
-        icon="pi pi-pencil"
-        (click)="onEditar()"
-        styleClass="p-button-warning">
-      </p-button>
-    </div>
-  </ng-template>
-</p-dialog>
+    <p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>

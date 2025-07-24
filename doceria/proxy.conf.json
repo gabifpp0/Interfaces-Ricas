@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://super-space-halibut-x5w4rg7q49w52pgv5-8000.app.github.dev",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {"^/api": ""}
+  }
+}

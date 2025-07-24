@@ -1,92 +1,115 @@
-<p-dialog 
-  [header]="isEditMode ? 'Editar Doce' : 'Novo Doce'"
-  [visible]="isVisible"
-  [modal]="true"
-  [closable]="true"
-  [draggable]="false"
-  [resizable]="false"
-  styleClass="doce-dialog"
-  (onHide)="onCancel()">
-  
-  <div class="form-container">
-    <form [formGroup]="doceForm" (ngSubmit)="onSubmit()">
-      
-      <div class="field">
-        <label for="nome" class="field-label">
-          <i class="pi pi-heart-fill"></i>
-          Nome do Doce *
-        </label>
-        <input 
-          pInputText 
-          id="nome"
-          formControlName="nome"
-          placeholder="Ex: Brigadeiro"
-          [class.ng-invalid]="isFieldInvalid('nome')"
-          class="w-full" />
-        <p-message 
-          *ngIf="isFieldInvalid('nome')"
-          severity="error"
-          [text]="getErrorMessage('nome')">
-        </p-message>
-      </div>
-
-      <div class="field">
-        <label for="preco" class="field-label">
-          <i class="pi pi-dollar"></i>
-          Preço *
-        </label>
-        <p-inputNumber
-          inputId="preco"
-          formControlName="preco"
-          mode="currency"
-          currency="BRL"
-          locale="pt-BR"
-          [min]="0.01"
-          [step]="0.01"
-          placeholder="0,00"
-          [class.ng-invalid]="isFieldInvalid('preco')"
-          styleClass="w-full">
-        </p-inputNumber>
-        <p-message 
-          *ngIf="isFieldInvalid('preco')"
-          severity="error"
-          [text]="getErrorMessage('preco')">
-        </p-message>
-      </div>
-
-      <!-- Disponibilidade -->
-      <div class="field">
-        <div class="checkbox-container">
-          <p-checkbox 
-            formControlName="disponivel"
-            inputId="disponivel"
-            [binary]="true">
-          </p-checkbox>
-          <label for="disponivel" class="checkbox-label">
-            <i class="pi pi-check-circle"></i>
-            Disponível para venda
-          </label>
+<div class="doce-form-container">
+      <p-card class="form-card">
+        <div class="form-header">
+          <h1 class="form-title">
+            <i class="pi" [class]="isEditMode ? 'pi-pencil' : 'pi-plus'"></i>
+            {{ isEditMode ? 'Editar Doce' : 'Criar Novo Doce' }}
+          </h1>
+          
+          <p-button 
+            label="Voltar" 
+            icon="pi pi-arrow-left"
+            [routerLink]="['/doces']"
+            severity="secondary"
+            size="small">
+          </p-button>
         </div>
-      </div>
 
-    </form>
-  </div>
+        <p-divider></p-divider>
 
-  <ng-template pTemplate="footer">
-    <div class="dialog-footer">
-      <p-button 
-        label="Cancelar"
-        icon="pi pi-times"
-        (onClick)="onCancel()"
-        styleClass="p-button-text">
-      </p-button>
-      <p-button 
-        [label]="isEditMode ? 'Atualizar' : 'Salvar'"
-        [icon]="isEditMode ? 'pi pi-check' : 'pi pi-save'"
-        (onClick)="onSubmit()"
-        [disabled]="doceForm.invalid"
-        styleClass="p-button-success">
-      </p-button>
+        <form [formGroup]="doceForm" (ngSubmit)="onSubmit()" class="doce-form">
+          <!-- Nome do Doce -->
+          <div class="form-field">
+            <label for="nome" class="form-label">
+              <i class="pi pi-heart-fill"></i>
+              Nome do Doce <span class="required">*</span>
+            </label>
+            <input 
+              pInputText 
+              id="nome"
+              formControlName="nome"
+              placeholder="Ex: Brigadeiro Gourmet, Beijinho de Coco..."
+              [class.ng-invalid]="doceForm.get('nome')?.invalid && doceForm.get('nome')?.touched"
+              class="w-full" />
+            
+            <small 
+              *ngIf="doceForm.get('nome')?.invalid && doceForm.get('nome')?.touched" 
+              class="error-message">
+              <span *ngIf="doceForm.get('nome')?.errors?.['required']">Nome do doce é obrigatório</span>
+              <span *ngIf="doceForm.get('nome')?.errors?.['minlength']">Nome deve ter pelo menos 2 caracteres</span>
+            </small>
+          </div>
+
+
+          <!-- Preço -->
+          <div class="form-field">
+            <label for="preco" class="form-label">
+              <i class="pi pi-dollar"></i>
+              Preço <span class="required">*</span>
+            </label>
+            <p-inputNumber
+              inputId="preco"
+              formControlName="preco"
+              mode="currency"
+              currency="BRL"
+              locale="pt-BR"
+              placeholder="0,00"
+              [min]="0"
+              [maxFractionDigits]="2"
+              [class.ng-invalid]="doceForm.get('preco')?.invalid && doceForm.get('preco')?.touched"
+              styleClass="w-full">
+            </p-inputNumber>
+            
+            <small 
+              *ngIf="doceForm.get('preco')?.invalid && doceForm.get('preco')?.touched" 
+              class="error-message">
+              <span *ngIf="doceForm.get('preco')?.errors?.['required']">Preço é obrigatório</span>
+              <span *ngIf="doceForm.get('preco')?.errors?.['min']">Preço deve ser maior que zero</span>
+            </small>
+          </div>
+
+          <!-- Disponível -->
+          <div class="form-field">
+            <div class="checkbox-wrapper">
+              <p-checkbox 
+                inputId="disponivel"
+                formControlName="disponivel"
+                [binary]="true">
+              </p-checkbox>
+              <label for="disponivel" class="checkbox-label">
+                <i class="pi pi-check-circle"></i>
+                Doce disponível para venda
+              </label>
+            </div>
+            <small class="field-help">
+              Marque esta opção se o doce está disponível no estoque
+            </small>
+          </div>
+
+          <p-divider></p-divider>
+
+          <!-- Ações -->
+          <div class="form-actions">
+            <p-button 
+              label="Cancelar" 
+              icon="pi pi-times"
+              [routerLink]="['/doces']"
+              severity="secondary"
+              type="button"
+              size="large">
+            </p-button>
+            
+            <p-button 
+              [label]="isEditMode ? 'Atualizar Doce' : 'Criar Doce'" 
+              [icon]="loading ? 'pi pi-spin pi-spinner' : (isEditMode ? 'pi pi-check' : 'pi pi-save')"
+              type="submit"
+              [disabled]="doceForm.invalid || loading"
+              [severity]="isEditMode ? 'info' : 'success'"
+              size="large">
+            </p-button>
+          </div>
+        </form>
+      </p-card>
     </div>
-  </ng-template>
-</p-dialog>
+
+    <p-toast></p-toast>
