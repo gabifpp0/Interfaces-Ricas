@@ -1,74 +1,151 @@
-.form-container {
-  padding: 1rem 0;
-}
+.doce-form-container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
 
-.field {
-  margin-bottom: 1.5rem;
-}
+    .form-card {
+      margin-bottom: 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
 
-.field-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: #333;
-  
-  i {
-    margin-right: 0.5rem;
-    color: #FFB6C1 ;
-  }
-}
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
 
-.checkbox-container {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.checkbox-label {
-  font-weight: 500;
-  color: #333;
-  cursor: pointer;
-  
-  i {
-    margin-right: 0.5rem;
-    color: #4caf50;
-  }
-}
-
-.dialog-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-}
-
-:host ::ng-deep {
-  .doce-dialog {
-    width: 90vw;
-    max-width: 500px;
-  }
-  
-  .doce-dialog .p-dialog-header {
-    background: linear-gradient(135deg, #FFB6C1 , #f06292);
-    color: white;
-    
-    .p-dialog-title {
+    .form-title {
+      color: #e91e63;
+      margin: 0;
+      font-size: 2rem;
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    
-    .p-dialog-header-icon {
-      color: white;
+
+    .doce-form {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 1rem;
     }
-  }
-  
-  .w-full {
-    width: 100%;
-  }
-  
-  .ng-invalid.ng-touched {
-    border-color: #f44336 !important;
-  }
-  
-  .p-inputnumber.ng-invalid .p-inputtext {
-    border-color: #f44336 !important;
-  }
-}
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #495057;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-label i {
+      color: #e91e63;
+    }
+
+    .required {
+      color: #dc3545;
+      font-weight: 700;
+    }
+
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(233, 30, 99, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(233, 30, 99, 0.2);
+    }
+
+    .checkbox-label {
+      font-weight: 500;
+      color: #495057;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    .checkbox-label i {
+      color: #28a745;
+    }
+
+    .field-help {
+      color: #6c757d;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+
+    .error-message {
+      color: #dc3545;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-top: 0.25rem;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 1rem;
+      padding-top: 1rem;
+    }
+
+    /* Input customizations */
+    :host ::ng-deep {
+      .p-inputtext:focus,
+      .p-inputnumber-input:focus {
+        border-color: #e91e63 !important;
+        box-shadow: 0 0 0 0.2rem rgba(233, 30, 99, 0.25) !important;
+      }
+
+      .p-checkbox .p-checkbox-box.p-highlight {
+        background-color: #e91e63 !important;
+        border-color: #e91e63 !important;
+      }
+
+      .p-inputnumber-buttons-stacked .p-button {
+        background: #e91e63 !important;
+        border-color: #e91e63 !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .form-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .form-title {
+        font-size: 1.6rem;
+        justify-content: center;
+      }
+
+      .form-actions {
+        flex-direction: column-reverse;
+      }
+
+      .form-actions p-button {
+        width: 100%;
+      }
+
+      .checkbox-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
