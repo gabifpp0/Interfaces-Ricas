@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Doce } from '../models/doce.model';
 
 @Injectable({
@@ -22,29 +22,36 @@ export class DoceService {
     return this.docesSubject.asObservable();
   }
 
-  getDoceById(id: number): Doce | undefined {
-    return this.doces.find(doce => doce.id === id);
+  getDoceById(id: number): Observable<Doce | undefined> {
+    const doce = this.doces.find(doce => doce.id === id);
+    return of(doce); 
   }
 
-  addDoce(doce: Omit<Doce, 'id'>): void {
+  addDoce(doce: Omit<Doce, 'id'>): Observable<Doce> {
     const novoDoce: Doce = {
       ...doce,
       id: this.nextId++
     };
     this.doces.push(novoDoce);
     this.docesSubject.next([...this.doces]);
+    return of(novoDoce); 
   }
 
-  updateDoce(doceAtualizado: Doce): void {
-    const index = this.doces.findIndex(doce => doce.id === doceAtualizado.id);
-    if (index !== -1) {
-      this.doces[index] = doceAtualizado;
-      this.docesSubject.next([...this.doces]);
-    }
+  updateDoce(id: number, doce: Doce): Observable<Doce> {
+  const index = this.doces.findIndex(d => d.id === id);
+  if (index !== -1) {
+    const atualizado = { ...doce, id };
+    this.doces[index] = atualizado;
+    this.docesSubject.next([...this.doces]);
+    return of(atualizado);
   }
+  return of(undefined as any); 
+}
 
-  deleteDoce(id: number): void {
+
+  deleteDoce(id: number): Observable<void> {
     this.doces = this.doces.filter(doce => doce.id !== id);
     this.docesSubject.next([...this.doces]);
+    return of();
   }
 }
