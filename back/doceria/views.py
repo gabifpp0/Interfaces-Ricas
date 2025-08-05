@@ -8,25 +8,32 @@ from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated  
 from .serializers import UsuarioSerializer, MyTokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 class DoceViewSet(viewsets.ModelViewSet):
     queryset = Doce.objects.all()
     serializer_class = DoceSerializer
-    
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    permission_classes = [AllowAny]
+
+    #def perform_create(self, serializer):
+    #    serializer.save(user=self.request.user)
     
     def get_queryset(self):
-        return Doce.objects.filter(user=self.request.user)
+        return Doce.objects.all()
+
 
 class UserView(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UsuarioSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        return Usuario.objects.all()
 
 class RegisterView(generics.CreateAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -41,3 +48,4 @@ class RegisterView(generics.CreateAPIView):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+    permission_classes = [AllowAny]
