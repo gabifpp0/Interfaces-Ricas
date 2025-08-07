@@ -10,7 +10,7 @@ import { LoginRequest, LoginResponse, Usuario, RefreshTokenRequest, RegisterRequ
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = 'https://probable-space-acorn-5gq9v7jp9xgvcvw7g-8000.app.github.dev';
+  private readonly API_URL = 'https://shiny-lamp-x5w4rg7q4vw62v94g-8000.app.github.dev';
   private readonly TOKEN_KEY = 'doceria_access_token';
   private readonly REFRESH_TOKEN_KEY = 'doceria_refresh_token';
   private readonly USER_KEY = 'doceria_user';

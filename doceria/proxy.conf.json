@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://probable-space-acorn-5gq9v7jp9xgvcvw7g-8000.app.github.dev",
+    "target": "https://shiny-lamp-x5w4rg7q4vw62v94g-8000.app.github.dev",
     "secure": false,
     "changeOrigin": true,
     "pathRewrite": {"^/api": ""}

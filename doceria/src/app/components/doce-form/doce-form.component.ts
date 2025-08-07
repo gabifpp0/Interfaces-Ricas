@@ -49,6 +49,7 @@ export class DoceFormComponent implements OnInit {
     private doceService: DoceService,
     private messageService: MessageService
   ) {
+    // Eu já havia implementado Reactive Forms
     this.doceForm = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(2)]],
       preco: [null, [Validators.required, Validators.min(0.01)]],

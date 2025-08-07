@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private messageService: MessageService
   ) {
+    // Eu já havia implementado Reactive Forms
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required]],
