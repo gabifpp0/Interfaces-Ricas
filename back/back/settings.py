@@ -155,8 +155,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CSRF_TRUSTED_ORIGINS = [
     "https://localhost:8000",
     "https://probable-space-acorn-5gq9v7jp9xgvcvw7g.github.dev",
-    "https://probable-space-acorn-5gq9v7jp9xgvcvw7g-8000.app.github.dev",
-    "https://probable-space-acorn-5gq9v7jp9xgvcvw7g-4200.app.github.dev"
+    "https://shiny-lamp-x5w4rg7q4vw62v94g-8000.app.github.dev",
+    "https://shiny-lamp-x5w4rg7q4vw62v94g-4200.app.github.dev"
     "https://localhost:4200",
 ]
 
@@ -173,11 +173,11 @@ SWAGGER_SETTINGS = {
             'in': 'header'
         }
     },
-    'DEFAULT_API_URL': 'https://probable-space-acorn-5gq9v7jp9xgvcvw7g-8000.app.github.dev',  # <-- coloque a URL real aqui
+    'DEFAULT_API_URL': 'https://shiny-lamp-x5w4rg7q4vw62v94g-8000.app.github.dev', 
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "https://probable-space-acorn-5gq9v7jp9xgvcvw7g-4200.app.github.dev",
+    "https://shiny-lamp-x5w4rg7q4vw62v94g-4200.app.github.dev",
     "http://localhost:4200",
     "http://127.0.0.1:4200",
 ]
