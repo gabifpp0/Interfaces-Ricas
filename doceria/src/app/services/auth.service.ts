@@ -10,7 +10,7 @@ import { LoginRequest, LoginResponse, Usuario, RefreshTokenRequest, RegisterRequ
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = 'https://probable-space-acorn-5gq9v7jp9xgvcvw7g-8000.app.github.dev/';
+  private readonly API_URL = 'https://probable-space-acorn-5gq9v7jp9xgvcvw7g-8000.app.github.dev';
   private readonly TOKEN_KEY = 'doceria_access_token';
   private readonly REFRESH_TOKEN_KEY = 'doceria_refresh_token';
   private readonly USER_KEY = 'doceria_user';
@@ -44,24 +44,15 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<TokenResponse>(`${this.API_URL}/token/`, credentials)
-      .pipe(
-        switchMap(tokenResponse => {
-          // Após obter o token, busca os dados do usuário
-          return this.getUserProfile().pipe(
-            map(user => ({
-              access: tokenResponse.access,
-              refresh: tokenResponse.refresh,
-              user: user
-            }))
-          );
-        }),
-        tap(response => {
-          this.setAuthData(response);
-          this.scheduleTokenRefresh();
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.post<LoginResponse>(`${this.API_URL}/login/`, credentials).pipe(
+      tap(response => {
+        console.log('Login bem-sucedido, redirecionando para /doces', response);
+        this.setAuthData(response);
+        this.scheduleTokenRefresh();
+        this.router.navigate(['/doces']);
+      }),
+      catchError(this.handleError)
+    );
   }
 
   private getUserProfile(): Observable<Usuario> {
@@ -101,8 +92,11 @@ export class AuthService {
     const refreshToken = this.getRefreshToken();
     
     if (!refreshToken) {
-      return throwError(() => new Error('Refresh token não encontrado'));
+      this.clearAuthData();
+      this.router.navigate(['/login']); // Use a rota correta
+      return throwError(() => new Error('Sessão expirada. Por favor faça login novamente.'));
     }
+
 
     const request: RefreshTokenRequest = { refresh: refreshToken };
 

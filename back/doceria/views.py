@@ -9,14 +9,14 @@ from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated  
 from .serializers import UsuarioSerializer, MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import UsuarioSerializer
+from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class DoceViewSet(viewsets.ModelViewSet):
     queryset = Doce.objects.all()
     serializer_class = DoceSerializer
-    permission_classes = [AllowAny]
-
-    #def perform_create(self, serializer):
-    #    serializer.save(user=self.request.user)
+    permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
         return Doce.objects.all()

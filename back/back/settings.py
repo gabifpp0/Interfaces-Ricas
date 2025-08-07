@@ -75,8 +75,6 @@ SIMPLE_JWT = {
 
 ROOT_URLCONF = "back.urls"
 
-CORS_ALLOW_ALL_ORIGINS = True
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -108,10 +106,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
-    ]
+    ),
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -158,7 +157,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://probable-space-acorn-5gq9v7jp9xgvcvw7g.github.dev",
     "https://probable-space-acorn-5gq9v7jp9xgvcvw7g-8000.app.github.dev",
     "https://probable-space-acorn-5gq9v7jp9xgvcvw7g-4200.app.github.dev"
-
+    "https://localhost:4200",
 ]
 
 CSRF_COOKIE_SECURE = False
@@ -176,3 +175,47 @@ SWAGGER_SETTINGS = {
     },
     'DEFAULT_API_URL': 'https://probable-space-acorn-5gq9v7jp9xgvcvw7g-8000.app.github.dev',  # <-- coloque a URL real aqui
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "https://probable-space-acorn-5gq9v7jp9xgvcvw7g-4200.app.github.dev",
+    "http://localhost:4200",
+    "http://127.0.0.1:4200",
+]
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'AUTH_COOKIE': 'access_token',
+    'AUTH_COOKIE_DOMAIN': None,  # Desative para desenvolvimento local
+    'AUTH_COOKIE_SECURE': False,  # Desative para testes em HTTP local
+    'AUTH_COOKIE_HTTP_ONLY': True,
+    'AUTH_COOKIE_PATH': '/',
+    'AUTH_COOKIE_SAMESITE': 'Lax',  # Use 'Lax' para desenvolvimento local
+}
+
+SESSION_COOKIE_SECURE = False  # Desative para testes em HTTP local
+CSRF_COOKIE_SECURE = False  # Desative para testes em HTTP local
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+CORS_ALLOW_CREDENTIALS = True

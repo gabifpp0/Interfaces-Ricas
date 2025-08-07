@@ -31,7 +31,7 @@ import { DoceService } from '../../services/doce.service';
     InputTextModule,
     TooltipModule
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService, DoceService],
   templateUrl: './doce-list.component.html',
   styleUrls: ['./doce-list.component.scss'],
 
@@ -48,18 +48,28 @@ export class DoceListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.doceService.getDoces().subscribe({
-      next: (doces) => {
-        console.log('Doces recebidos:', doces);
-        this.doces = doces;
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Erro ao buscar doces:', error);
-        this.loading = false;
-      }
-    });
-  }
+  this.doceService.getDoces().subscribe({
+    next: (doces) => {
+      console.log('Doces recebidos:', doces);
+      this.doces = doces;
+      this.loading = false;
+    },
+    error: (error) => {
+      console.error('Erro ao buscar doces:', {
+        status: error.status,
+        statusText: error.statusText,
+        message: error.message,
+        error: error.error
+      });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Não foi possível carregar os doces. Verifique sua conexão ou tente novamente.'
+      });
+      this.loading = false;
+    }
+  });
+}
   
   carregarDoces() {
     this.loading = true;
