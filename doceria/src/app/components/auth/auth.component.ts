@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   returnUrl = '/doces';
+  isAuthenticated = false;
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +55,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/doces';
+    this.isAuthenticated = this.authService.isAuthenticated();
   }
 
   onSubmit() {
@@ -96,4 +98,15 @@ export class LoginComponent implements OnInit {
       this.loginForm.get(key)?.markAsTouched();
     });
   }
+
+logout() {
+    this.authService.logout();
+    this.isAuthenticated = false;
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Logout',
+      detail: 'Você foi desconectado com sucesso.'
+    });
+  }
+
 }

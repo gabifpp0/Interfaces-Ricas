@@ -78,6 +78,19 @@
               Criar conta
             </a>
           </div>
+
+           <div class="mt-4 text-center" *ngIf="isAuthenticated">
+            <p-divider></p-divider>
+            <p class="mb-3">Você já está logado</p>
+            <p-button 
+              label="Logout" 
+              icon="pi pi-sign-out"
+              severity="danger"
+              (click)="logout()"
+              class="w-full">
+            </p-button>
+          </div>
+          
         </p-card>
       </div>
     </div>

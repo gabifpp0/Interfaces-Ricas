@@ -144,6 +144,15 @@
       margin-top: 0.25rem;
     }
 
+    .logout-button {
+      background-color: #f44336 !important;
+      border-color: #d32f2f !important;
+    }
+
+    .logout-button:hover {
+      background-color: #d32f2f !important;
+    }
+    
     :host ::ng-deep {
       .p-inputtext:focus,
       .p-password-input:focus {

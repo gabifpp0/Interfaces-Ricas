@@ -72,28 +72,22 @@ export class AuthService {
       );
   }
 
-  
   logout(): void {
-    const refreshToken = this.getRefreshToken();    
-    if (refreshToken) {
-      this.http.post(`${this.API_URL}/token/blacklist/`, { refresh: refreshToken })
-        .subscribe({
-          error: (error) => console.warn('Erro ao fazer logout no servidor:', error)
-        });
-    }
-
     this.clearAuthData();
+    
     this.cancelTokenRefresh();
+    
     this.router.navigate(['/auth/login']);
+    
+    console.log('Logout realizado com sucesso');
   }
-
 
   refreshToken(): Observable<TokenResponse> {
     const refreshToken = this.getRefreshToken();
     
     if (!refreshToken) {
       this.clearAuthData();
-      this.router.navigate(['/login']); // Use a rota correta
+      this.router.navigate(['/login']);
       return throwError(() => new Error('Sessão expirada. Por favor faça login novamente.'));
     }
 
