@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -111,5 +112,11 @@ import { MenubarModule } from 'primeng/menubar';
   `]
 })
 export class AppComponent {
+  constructor(private authService: AuthService) {}
+  
   title = 'doceria-angular-primeng';
+
+  logout() {
+    this.authService.logout(); 
+  }
 }

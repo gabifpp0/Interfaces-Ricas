@@ -3,8 +3,9 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/doces',
-    pathMatch: 'full'
+    loadComponent: () => import('./components/auth/auth.component').then(m => m.LoginComponent),
+    pathMatch: 'full',
+    title: 'Lista de Doces'
   },
   {
     path: 'doces',

@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DoceService {
-  private apiUrl = 'https://super-space-halibut-x5w4rg7q49w52pgv5-8000.app.github.dev/api/doces';
+  private apiUrl = 'https://probable-space-acorn-5gq9v7jp9xgvcvw7g-8000.app.github.dev/doces';
 
   constructor(private http: HttpClient) {}
 

@@ -1,0 +1,98 @@
+<div class="login-container">
+      <div class="login-wrapper">
+        <p-card class="login-card">
+          <div class="login-header">
+            <div class="logo">
+              <i class="pi pi-heart-fill"></i>
+              <h1>Doceria Delícias</h1>
+            </div>
+            <p class="subtitle">Entre na sua conta</p>
+          </div>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+            <!-- Username -->
+            <div class="form-field">
+              <label for="username" class="form-label">
+                <i class="pi pi-user"></i>
+                Nome de usuário
+              </label>
+              <input 
+                pInputText 
+                id="username"
+                formControlName="username"
+                placeholder="Digite seu nome de usuário"
+                [class.ng-invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+                class="w-full" />
+              
+              <small 
+                *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" 
+                class="error-message">
+                <span *ngIf="loginForm.get('username')?.errors?.['required']">Nome de usuário é obrigatório</span>
+                <span *ngIf="loginForm.get('username')?.errors?.['minlength']">Nome de usuário deve ter pelo menos 3 caracteres</span>
+              </small>
+            </div>
+
+            <!-- Password -->
+            <div class="form-field">
+              <label for="password" class="form-label">
+                <i class="pi pi-lock"></i>
+                Senha
+              </label>
+              <p-password 
+                inputId="password"
+                formControlName="password"
+                placeholder="Digite sua senha"
+                [toggleMask]="true"
+                [feedback]="false"
+                [class.ng-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                styleClass="w-full">
+              </p-password>
+              
+              <small 
+                *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" 
+                class="error-message">
+                <span *ngIf="loginForm.get('password')?.errors?.['required']">Senha é obrigatória</span>
+              </small>
+            </div>
+
+            <!-- Botão de Login -->
+            <p-button 
+              label="Entrar" 
+              [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-sign-in'"
+              type="submit"
+              [disabled]="loginForm.invalid || loading"
+              severity="success"
+              size="large"
+              styleClass="w-full login-button">
+            </p-button>
+          </form>
+
+          <p-divider align="center">
+            <span class="divider-text">ou</span>
+          </p-divider>
+
+          <!-- Link para Registro -->
+          <div class="register-link">
+            <p>Não tem uma conta?</p>
+            <a routerLink="/auth/register" class="register-button">
+              Criar conta
+            </a>
+          </div>
+
+           <div class="mt-4 text-center" *ngIf="isAuthenticated">
+            <p-divider></p-divider>
+            <p class="mb-3">Você já está logado</p>
+            <p-button 
+              label="Logout" 
+              icon="pi pi-sign-out"
+              severity="danger"
+              (click)="logout()"
+              class="w-full">
+            </p-button>
+          </div>
+          
+        </p-card>
+      </div>
+    </div>
+
+    <p-toast></p-toast>
